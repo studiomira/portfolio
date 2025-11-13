@@ -5,394 +5,394 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Mira – Crafting Clarity</title>
 
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
-/* CSS CODE: CLEANED WHITESPACE ONLY */
-html, body { height: 100%; margin: 0; }
-body {
-  margin: 0;
-  overflow-x: hidden;
-  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
-  font-family: 'Poppins', sans-serif;
-  color: #1a1a1a;
-}
+  html, body { height: 100%; margin: 0; }
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+    font-family: 'Poppins', sans-serif;
+    color: #1a1a1a;
+  }
 
-canvas { display: block; z-index: 1; opacity: 0.8; }
+  canvas { display: block; z-index: 1; opacity: 0.8; }
 
-/* NAVIGATION */
-nav {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 6;
-  display: flex;
-  justify-content: flex-end;
-  gap: 3rem;
-  padding: 2rem 3rem;
-  background: transparent;
-  transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
-}
+  /* NAVIGATION */
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 6;
+    display: flex;
+    justify-content: flex-end;
+    gap: 3rem;
+    padding: 2rem 3rem;
+    background: transparent;
+    transition: background 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
+  }
 
-nav.scrolled {
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  backdrop-filter: blur(6px);
-}
+  nav.scrolled {
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    backdrop-filter: blur(6px);
+  }
 
-nav a {
-  position: relative;
-  color: #1a1a1a;
-  text-decoration: none;
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 100%;
-  height: 1.5px;
-  background-color: #1a1a1a;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s cubic-bezier(0.25,0.9,0.25,1);
-}
-nav a:hover::after {
-  transform: scaleX(1);
-}
+  nav a {
+    position: relative;
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 1.5px;
+    background-color: #1a1a1a;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.25,0.9,0.25,1);
+  }
+  nav a:hover::after {
+    transform: scaleX(1);
+  }
 
-/* LOGO */
-.identity {
-  position: fixed;
-  top: 1.6rem;
-  left: 3rem;
-  z-index: 7;
-}
-.identity img {
-  height: 42px;
-  width: auto;
-  object-fit: contain;
-}
+  /* LOGO */
+  .identity {
+    position: fixed;
+    top: 1.6rem;
+    left: 3rem;
+    z-index: 7;
+  }
+  .identity img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+  }
 
-/* OVERLAY */
-.overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
-  z-index: 2;
-}
+  /* OVERLAY */
+  .overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: 2;
+  }
 
-/* HERO TITLE */
-h1 {
-  margin: 0;
-  color: #1a1a1a;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  text-align: center;
-  font-size: clamp(4.2rem, 9vw, 9.5rem);
-  line-height: 1.05;
-  opacity: 0;
-  transform: translateY(10px);
-  white-space: pre-line;
-  animation: fadeInMain 3.8s cubic-bezier(0.25,0.9,0.25,1) forwards 0.5s;
-}
+  /* HERO TITLE */
+  h1 {
+    margin: 0;
+    color: #1a1a1a;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: clamp(4.2rem, 9vw, 9.5rem);
+    line-height: 1.05;
+    opacity: 0;
+    transform: translateY(10px);
+    white-space: pre-line;
+    animation: fadeInMain 3.8s cubic-bezier(0.25,0.9,0.25,1) forwards 0.5s;
+  }
 
-/* TAGLINE */
-.tagline {
-  margin-top: 1.2em;
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 200;
-  color: #1a1a1a;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeInMain 3.8s ease-out forwards 1.7s;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.65);
-  padding: 0.45em 1.1em;
-  border-radius: 1.5em;
-  backdrop-filter: blur(6px);
-  display: inline-block;
-}
+  /* TAGLINE */
+  .tagline {
+    margin-top: 1.2em;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 200;
+    color: #1a1a1a;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInMain 3.8s ease-out forwards 1.7s;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.65);
+    padding: 0.45em 1.1em;
+    border-radius: 1.5em;
+    backdrop-filter: blur(6px);
+    display: inline-block;
+  }
 
-@keyframes fadeInMain { to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInMain { to { opacity: 1; transform: translateY(0); } }
 
-/* ARROW BUTTON */
-.scroll-arrow {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 36px;
-  height: 36px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  z-index: 3;
-}
-.scroll-arrow::before {
-  content: "";
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  width: 18px;
-  height: 18px;
-  border-left: 1.5px solid #002c8b;
-  border-bottom: 1.5px solid #002c8b;
-  transform: translateX(-50%) rotate(-45deg);
-}
+  /* ARROW BUTTON */
+  .scroll-arrow {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    z-index: 3;
+  }
+  .scroll-arrow::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    border-left: 1.5px solid #002c8b;
+    border-bottom: 1.5px solid #002c8b;
+    transform: translateX(-50%) rotate(-45deg);
+  }
 
-/* SECTIONS */
-section {
-  padding: 8rem 2rem;
-  background: #f9fbff;
-}
-.about-section {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 8rem;
-}
-.about-section h2 {
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin-bottom: 2rem;
-}
-.about-section p {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  line-height: 1.6;
-  font-size: 1rem;
-  color: #333;
-}
+  /* SECTIONS */
+  section {
+    padding: 8rem 2rem;
+    background: #f9fbff;
+  }
+  .about-section {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 8rem;
+  }
+  .about-section h2 {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+  .about-section p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    font-size: 1rem;
+    color: #333;
+  }
 
-.core-section h2 {
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin-bottom: 4rem;
-  text-align: center;
-}
-.core-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  max-width: 1000px;
-  width: 100%;
-  margin: 0 auto;
-}
-.core-card {
-  border: 1.5px solid #1a1a1a;
-  border-radius: 1.6rem;
-  padding: 2.2rem;
-  transition: border-color 0.3s ease;
-  background: none;
-}
-.core-card:hover {
-  border-color: #002c8b;
-}
-.core-card h3 {
-  font-weight: 500;
-  font-size: 1.1rem;
-  margin-bottom: 0.8rem;
-  letter-spacing: 0.02em;
-}
-.core-card p {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  line-height: 1.6;
-  font-size: 0.95rem;
-  color: #333;
-}
+  .core-section h2 {
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+  .core-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .core-card {
+    border: 1.5px solid #1a1a1a;
+    border-radius: 1.6rem;
+    padding: 2.2rem;
+    transition: border-color 0.3s ease;
+    background: none;
+  }
+  .core-card:hover {
+    border-color: #002c8b;
+  }
+  .core-card h3 {
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.02em;
+  }
+  .core-card p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    font-size: 0.95rem;
+    color: #333;
+  }
 
-@media (max-width: 480px) {
-  h1 { font-size: clamp(2.8rem, 10vw, 5.5rem); white-space: normal; }
-  nav { gap: 1.8rem; padding: 1.5rem 2rem; }
-  .scroll-arrow { bottom: 1.4rem; }
-  .about-section, .core-section { padding: 5rem 1.4rem; }
-}
+  @media (max-width: 480px) {
+    h1 { font-size: clamp(2.8rem, 10vw, 5.5rem); white-space: normal; }
+    nav { gap: 1.8rem; padding: 1.5rem 2rem; }
+    .scroll-arrow { bottom: 1.4rem; }
+    .about-section, .core-section { padding: 5rem 1.4rem; }
+  }
 </style>
 </head>
 
 <body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <nav>
-    <a href="#about">ABOUT</a>
-    <a href="#work">WORK</a>
-    <a href="#contact">CONTACT</a>
-  </nav>
+  <nav>
+    <a href="#about">ABOUT</a>
+    <a href="#work">WORK</a>
+    <a href="#contact">CONTACT</a>
+  </nav>
 
-  <div class="identity">
-    <img src="A_logo_for_Mira_Rauschenberger_is_displayed_in_the.png" alt="Mira logo">
-  </div>
+  <div class="identity">
+    <img src="A_logo_for_Mira_Rauschenberger_is_displayed_in_the.png" alt="Mira logo">
+  </div>
 
-  <script>
-  // === Scene setup ===
-  const scene = new THREE.Scene();
-  const fogColor = new THREE.Color(0xffffff);
-  scene.fog = new THREE.Fog(fogColor, 10, 60);
+  <script>
+  // === Scene setup ===
+  const scene = new THREE.Scene();
+  const fogColor = new THREE.Color(0xffffff);
+  scene.fog = new THREE.Fog(fogColor, 10, 60);
 
-  const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setClearColor(0xffffff, 1);
-  renderer.setSize(innerWidth, innerHeight);
-  document.body.appendChild(renderer.domElement);
+  const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setClearColor(0xffffff, 1);
+  renderer.setSize(innerWidth, innerHeight);
+  document.body.appendChild(renderer.domElement);
 
-  const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-  scene.add(ambient);
-  const pointLight = new THREE.PointLight(0xffffff, 2.4, 300);
-  pointLight.position.set(0, 0, 10);
-  scene.add(pointLight);
-  const highlightLight = new THREE.PointLight(0x99b5ff, 6, 60);
-  scene.add(highlightLight);
+  const ambient = new THREE.AmbientLight(0xffffff, 0.6);
+  scene.add(ambient);
+  const pointLight = new THREE.PointLight(0xffffff, 2.4, 300);
+  pointLight.position.set(0, 0, 10);
+  scene.add(pointLight);
+  const highlightLight = new THREE.PointLight(0x99b5ff, 6, 60);
+  scene.add(highlightLight);
 
-  const group = new THREE.Group();
-  scene.add(group);
+  const group = new THREE.Group();
+  scene.add(group);
 
-  const NUM_SPHERES = 250;
-  const BASE_RADIUS = 0.07;
-  const RANGE = 15;
-  const COLORS = [0x002c8b, 0x3355cc, 0x668cff];
+  const NUM_SPHERES = 250;
+  const BASE_RADIUS = 0.07;
+  const RANGE = 15;
+  const COLORS = [0x002c8b, 0x3355cc, 0x668cff];
 
-  const geo = new THREE.SphereGeometry(BASE_RADIUS, 32, 32);
-  for (let i = 0; i < NUM_SPHERES; i++) {
-    const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    const mat = new THREE.MeshPhysicalMaterial({
-      color: color,
-      metalness: 1.0,
-      roughness: 0.02,
-      transmission: 0.55,
-      reflectivity: 1,
-      clearcoat: 1,
-      clearcoatRoughness: 0.02,
-      transparent: true,
-      opacity: 0.85,
-      envMapIntensity: 3.2
-    });
-    const s = new THREE.Mesh(geo, mat);
-    s.position.set(
-      (Math.random() - 0.5) * RANGE * 2,
-      (Math.random() - 0.5) * RANGE * 2,
-      (Math.random() - 0.5) * RANGE * 2
-    );
-    group.add(s);
-  }
+  const geo = new THREE.SphereGeometry(BASE_RADIUS, 32, 32);
+  for (let i = 0; i < NUM_SPHERES; i++) {
+    const color = COLORS[Math.floor(Math.random() * COLORS.length)];
+    const mat = new THREE.MeshPhysicalMaterial({
+      color: color,
+      metalness: 1.0,
+      roughness: 0.02,
+      transmission: 0.55,
+      reflectivity: 1,
+      clearcoat: 1,
+      clearcoatRoughness: 0.02,
+      transparent: true,
+      opacity: 0.85,
+      envMapIntensity: 3.2
+    });
+    const s = new THREE.Mesh(geo, mat);
+    s.position.set(
+      (Math.random() - 0.5) * RANGE * 2,
+      (Math.random() - 0.5) * RANGE * 2,
+      (Math.random() - 0.5) * RANGE * 2
+    );
+    group.add(s);
+  }
 
-  camera.position.z = 25;
+  camera.position.z = 25;
 
-  // Overlay
-  const overlay = document.createElement('div');
-  overlay.className = 'overlay';
-  document.body.appendChild(overlay);
+  // Overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  document.body.appendChild(overlay);
 
-  const title = document.createElement('h1');
-  title.textContent = "CRAFTING\nCLARITY";
-  overlay.appendChild(title);
+  const title = document.createElement('h1');
+  title.textContent = "CRAFTING\nCLARITY";
+  overlay.appendChild(title);
 
-  const tagline = document.createElement('p');
-  tagline.className = 'tagline';
-  tagline.textContent = "I DESIGN INTERFACES THAT UNTANGLE COMPLEXITY.";
-  overlay.appendChild(tagline);
+  const tagline = document.createElement('p');
+  tagline.className = 'tagline';
+  tagline.textContent = "I DESIGN INTERFACES THAT UNTANGLE COMPLEXITY.";
+  overlay.appendChild(tagline);
 
-  // Scroll arrow
-  const arrowBtn = document.createElement('button');
-  arrowBtn.className = 'scroll-arrow';
-  arrowBtn.addEventListener('click', () => {
-    document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
-  });
-  document.body.appendChild(arrowBtn);
+  // Scroll arrow
+  const arrowBtn = document.createElement('button');
+  arrowBtn.className = 'scroll-arrow';
+  arrowBtn.addEventListener('click', () => {
+    document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
+  });
+  document.body.appendChild(arrowBtn);
 
-  // Animate
-  const clock = new THREE.Clock();
-  let mouseX = 0, mouseY = 0;
-  document.addEventListener('mousemove', e => {
-    mouseX = (e.clientX / innerWidth) * 2 - 1;
-    mouseY = -(e.clientY / innerHeight) * 2 + 1;
-  });
+  // Animate
+  const clock = new THREE.Clock();
+  let mouseX = 0, mouseY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = (e.clientX / innerWidth) * 2 - 1;
+    mouseY = -(e.clientY / innerHeight) * 2 + 1;
+  });
 
-  function animate() {
-    requestAnimationFrame(animate);
-    const t = clock.getElapsedTime();
-    camera.position.x += (mouseX * 3 - camera.position.x) * 0.05;
-    camera.position.y += (mouseY * 2 - camera.position.y) * 0.05;
-    camera.lookAt(scene.position);
-    pointLight.position.set(mouseX * 40, mouseY * 20, 15 + Math.sin(t) * 5);
-    highlightLight.position.set(mouseX * 25, mouseY * 12, 5);
-    group.rotation.y += 0.001;
-    renderer.render(scene, camera);
-  }
-  animate();
+  function animate() {
+    requestAnimationFrame(animate);
+    const t = clock.getElapsedTime();
+    camera.position.x += (mouseX * 3 - camera.position.x) * 0.05;
+    camera.position.y += (mouseY * 2 - camera.position.y) * 0.05;
+    camera.lookAt(scene.position);
+    pointLight.position.set(mouseX * 40, mouseY * 20, 15 + Math.sin(t) * 5);
+    highlightLight.position.set(mouseX * 25, mouseY * 12, 5);
+    group.rotation.y += 0.001;
+    renderer.render(scene, camera);
+  }
+  animate();
 
-  // Resize fix
-  window.addEventListener('resize', () => {
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth, innerHeight);
-  });
+  // Resize fix
+  window.addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+  });
 
-  // Mobile rotation fix
-  window.addEventListener('orientationchange', () => {
-    setTimeout(() => {
-      camera.aspect = innerWidth / innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(innerWidth, innerHeight);
-    }, 300);
-    // FIX: Repaint hack to force re-centering the absolutely positioned .overlay
-    document.querySelector('.overlay').style.transform = 'translateY(1px) translateY(-1px)';
-  });
+  // Mobile rotation fix
+  window.addEventListener('orientationchange', () => {
+    setTimeout(() => {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    }, 300);
+  });
 
-  // White nav background on scroll (no jump)
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > window.innerHeight * 0.8) {
-      nav.classList.add('scrolled');
-    } else {
-      nav.classList.remove('scrolled');
-    }
-  });
-  </script>
+  // White nav background on scroll (no jump)
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > window.innerHeight * 0.8) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  });
+  </script>
 
-  <section id="about" class="about-section">
-    <h2>About Me</h2>
-    <p>
-      I'm a designer focused on clarity, usability, and thoughtful interaction systems.
-      My work bridges aesthetics and logic—turning complexity into intuitive experiences
-      that empower users and organizations alike.
-    </p>
-  </section>
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <h2>About Me</h2>
+    <p>
+      I'm a designer focused on clarity, usability, and thoughtful interaction systems.
+      My work bridges aesthetics and logic—turning complexity into intuitive experiences
+      that empower users and organizations alike.
+    </p>
+  </section>
 
-  <section class="core-section">
-    <h2>Core Capabilities</h2>
-    <div class="core-cards">
-      <div class="core-card">
-        <h3>User Focus</h3>
-        <p>Unwavering commitment to prioritizing the needs and long-term goals of the users.</p>
-      </div>
-      <div class="core-card">
-        <h3>Streamlined Design</h3>
-        <p>Creating intuitive interfaces with attention to typography, color, and layout systems.</p>
-      </div>
-      <div class="core-card">
-        <h3>Data Analysis</h3>
-        <p>Interpreting quantitative and qualitative user data to extract actionable insights.</p>
-      </div>
-    </div>
-  </section>
+  <!-- Core Capabilities -->
+  <section class="core-section">
+    <h2>Core Capabilities</h2>
+    <div class="core-cards">
+      <div class="core-card">
+        <h3>User Focus</h3>
+        <p>Unwavering commitment to prioritizing the needs and long-term goals of the users.</p>
+      </div>
+      <div class="core-card">
+        <h3>Streamlined Design</h3>
+        <p>Creating intuitive interfaces with attention to typography, color, and layout systems.</p>
+      </div>
+      <div class="core-card">
+        <h3>Data Analysis</h3>
+        <p>Interpreting quantitative and qualitative user data to extract actionable insights.</p>
+      </div>
+    </div>
+  </section>
 </body>
 </html>
