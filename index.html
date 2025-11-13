@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -421,30 +422,22 @@
     renderer.setSize(innerWidth, innerHeight);
   });
   
-  // --- Fix for mobile rotation (keeps vertical view consistent) ---
-let lastWidth = window.innerWidth;
-let lastHeight = window.innerHeight;
-
+  // --- Minimal Android rotation fix (non-intrusive) ---
 window.addEventListener('orientationchange', () => {
   setTimeout(() => {
-    // Force proper recalculation of viewport size
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    const w = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+    const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
 
-    // Update camera aspect and renderer size
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
 
-    // Optional: recenters overlay for consistency
-    overlay.style.transform = 'translate(0,0)';
+    // refresh layout subtly (no visual jump)
+    renderer.domElement.style.width = "100%";
+    renderer.domElement.style.height = "100%";
 
-    // Ensure scroll-based UI (like nav scrolled state) resets correctly
     window.dispatchEvent(new Event('scroll'));
-
-    lastWidth = w;
-    lastHeight = h;
-  }, 400); // allow browser to finish rotating before recalculating
+  }, 500); // wait for Android to finish rotation
 });
 
 
