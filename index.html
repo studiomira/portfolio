@@ -421,16 +421,30 @@
     renderer.setSize(innerWidth, innerHeight);
   });
   
-  window.addEventListener('orientationchange', () => {
+  // --- Fix for mobile rotation (keeps vertical view consistent) ---
+let lastWidth = window.innerWidth;
+let lastHeight = window.innerHeight;
+
+window.addEventListener('orientationchange', () => {
   setTimeout(() => {
+    // Force proper recalculation of viewport size
     const w = window.innerWidth;
     const h = window.innerHeight;
+
+    // Update camera aspect and renderer size
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
-    renderer.domElement.style.width = w + 'px';
-    renderer.domElement.style.height = h + 'px';
-  }, 600);
+
+    // Optional: recenters overlay for consistency
+    overlay.style.transform = 'translate(0,0)';
+
+    // Ensure scroll-based UI (like nav scrolled state) resets correctly
+    window.dispatchEvent(new Event('scroll'));
+
+    lastWidth = w;
+    lastHeight = h;
+  }, 400); // allow browser to finish rotating before recalculating
 });
 
 
