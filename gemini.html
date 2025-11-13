@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IBM Blue Glowing Dots</title>
+<style>
+  body { margin: 0; overflow: hidden; background: white; }
+  canvas { display: block; }
+</style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script>
+let scene, camera, renderer;
+let particles;
+let mouseX = 0, mouseY = 0;
+const IBM_BLUE = 0x006699;
+
+init();
+animate();
+
+function createParticleTexture() {
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d');
+
+    // Clear the canvas
+    ctx.clearRect(0, 0, size, size);
+
+    // Draw a transparent circle in the middle of the canvas
+    ctx.beginPath();
+    ctx.arc(size / 2, size / 2, size / 4, 0, Math.PI * 2);
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    // Create the IBM blue glow effect around the circle
+    const gradient = ctx.createRadialGradient(size / 2, size / 2, size / 4, size / 2, size / 2, size / 2);
+    gradient.addColorStop(0, 'rgba(0,102,153,0.4)'); // IBM blue glow
+    gradient.addColorStop(1, 'rgba(0,102,153,0)'); // Fade to transparent
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
+
+    const texture = new THREE.Texture(canvas);
+    texture.needsUpdate = true; // Make sure the texture is updated
+    return texture;
+}
+
+function init() {
+    scene = new THREE.Scene();
+
+    const fov = 75;
+    const aspect = window.innerWidth / window.innerHeight;
+    const near = 0.1;
+    const far = 2000;
+    camera = new THREE.
