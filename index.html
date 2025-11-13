@@ -372,7 +372,7 @@
 
   const tagline = document.createElement('p');
   tagline.className = 'tagline';
-  tagline.textContent = "I DESIGN INTERFACES TO UNTANGLE COMPLEXITY.";
+  tagline.textContent = "I DESIGN INTERFACES THAT UNTANGLE COMPLEXITY.";
   overlay.appendChild(tagline);
 
   const arrow = document.createElement('button');
@@ -423,10 +423,14 @@
   
   window.addEventListener('orientationchange', () => {
   setTimeout(() => {
-    camera.aspect = innerWidth / innerHeight;
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    camera.aspect = w / h;
     camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth, innerHeight);
-  }, 400);
+    renderer.setSize(w, h);
+    renderer.domElement.style.width = w + 'px';
+    renderer.domElement.style.height = h + 'px';
+  }, 600);
 });
 
 
