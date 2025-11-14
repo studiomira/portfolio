@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <title>Concentric Circles + Sphere (Top 47% – Sphere Hidden)</title>
   <style>
-    body { margin: 0; background: #ffffff; overflow: hidden; }
+    html { background: transparent; }
+    body { margin: 0; background: transparent; overflow: hidden; }
     canvas { display: block; width: 100vw; height: 100vh; }
   </style>
 </head>
@@ -25,6 +26,10 @@
     let angle = 0;
 
     function draw() {
+      // Invisible base so strokes stay visible over transparency
+      ctx.fillStyle = "rgba(255,255,255,0.0001)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // ----- MASK: top 47% -----
@@ -38,15 +43,11 @@
       const cx = canvas.width / 2;
       const cy = canvas.height / 2;
 
-      // Sphere (INVISIBLE but still computed)
       const sphereR = 12;
       const travelRadius = baseRings[0] - sphereR - 4;
       const sx = cx + Math.cos(angle) * travelRadius;
       const sy = cy + Math.sin(angle) * travelRadius;
 
-      // 🔇 SPHERE DRAW REMOVED — but sphere still drives animation
-
-      // circles
       const breath = 1 + Math.sin(angle * 1.5) * 0.03;
       const globalRot = angle * 0.3;
 
