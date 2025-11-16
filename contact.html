@@ -292,78 +292,83 @@
 
 <!-- FLOATING DOTS ANIMATION -->
 <script>
-const canvas = document.getElementById("bgCanvas");
-const renderer = new THREE.WebGLRenderer({
-  canvas,
-  antialias: true,
-  alpha: true
-});
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor(0x000000, 0);
+window.addEventListener("load", function () {
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-  60,
-  window.innerWidth / window.innerHeight,
-  1,
-  2000
-);
-camera.position.z = 420;
+  const canvas = document.getElementById("bgCanvas");
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: true,
+    alpha: true
+  });
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setClearColor(0x000000, 0);
 
-const COUNT = 70;
-const positions = [];
-const velocities = [];
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    60,
+    window.innerWidth / window.innerHeight,
+    1,
+    2000
+  );
+  camera.position.z = 420;
 
-for (let i = 0; i < COUNT; i++) {
-  positions.push((Math.random() - 0.5) * 800);
-  positions.push((Math.random() - 0.5) * 500);
-  positions.push((Math.random() - 0.5) * 200);
-
-  velocities.push((Math.random() - 0.5) * 0.15);
-  velocities.push((Math.random() - 0.5) * 0.15);
-  velocities.push((Math.random() - 0.5) * 0.15);
-}
-
-const geometry = new THREE.BufferGeometry();
-geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
-
-const material = new THREE.PointsMaterial({
-  color: 0x333333,
-  size: 2.2,
-  transparent: true,
-  opacity: 0.35
-});
-
-const points = new THREE.Points(geometry, material);
-scene.add(points);
-
-function animate() {
-  requestAnimationFrame(animate);
-  const pos = geometry.attributes.position.array;
+  const COUNT = 70;
+  const positions = [];
+  const velocities = [];
 
   for (let i = 0; i < COUNT; i++) {
-    pos[i * 3]     += velocities[i * 3];
-    pos[i * 3 + 1] += velocities[i * 3 + 1];
-    pos[i * 3 + 2] += velocities[i * 3 + 2];
+    positions.push((Math.random() - 0.5) * 800);
+    positions.push((Math.random() - 0.5) * 500);
+    positions.push((Math.random() - 0.5) * 200);
 
-    if (Math.abs(pos[i * 3]) > 450) velocities[i * 3] *= -1;
-    if (Math.abs(pos[i * 3 + 1]) > 300) velocities[i * 3 + 1] *= -1;
-    if (Math.abs(pos[i * 3 + 2]) > 180) velocities[i * 3 + 2] *= -1;
+    velocities.push((Math.random() - 0.5) * 0.15);
+    velocities.push((Math.random() - 0.5) * 0.15);
+    velocities.push((Math.random() - 0.5) * 0.15);
   }
 
-  geometry.attributes.position.needsUpdate = true;
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
 
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.render(scene, camera);
-}
+  const material = new THREE.PointsMaterial({
+    color: 0x333333,
+    size: 2.2,
+    transparent: true,
+    opacity: 0.35
+  });
 
-animate();
+  const points = new THREE.Points(geometry, material);
+  scene.add(points);
 
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-});
+  function animate() {
+    requestAnimationFrame(animate);
+    const pos = geometry.attributes.position.array;
+
+    for (let i = 0; i < COUNT; i++) {
+      pos[i * 3]     += velocities[i * 3];
+      pos[i * 3 + 1] += velocities[i * 3 + 1];
+      pos[i * 3 + 2] += velocities[i * 3 + 2];
+
+      if (Math.abs(pos[i * 3]) > 450) velocities[i * 3] *= -1;
+      if (Math.abs(pos[i * 3 + 1]) > 300) velocities[i * 3 + 1] *= -1;
+      if (Math.abs(pos[i * 3 + 2]) > 180) velocities[i * 3 + 2] *= -1;
+    }
+
+    geometry.attributes.position.needsUpdate = true;
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  window.addEventListener("resize", () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+  });
+
+}); 
 </script>
+
 
 </body>
 </html>
