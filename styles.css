@@ -14,8 +14,8 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Navigation */
-nav {
+/* NAVIGATION */
+#navbar {
   position: fixed;
   top: 0;
   width: 100%;
@@ -23,73 +23,39 @@ nav {
   display: flex;
   justify-content: flex-end;
   gap: 25px;
-  z-index: 10;
+  z-index: 20; /* ABOVE hero canvas */
 }
 
-nav a {
+#navbar a {
   color: #1a1a1a;
   text-decoration: none;
   font-size: 16px;
   font-weight: 400;
 }
 
-nav a:hover {
+#navbar a:hover {
   opacity: 0.7;
 }
 
-/* HERO SECTION */
-.hero {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  background: #ffffff;
+/* LOGOTYPE */
+.site-logo {
+  position: fixed;
+  top: 22px;
+  left: 40px;
+  z-index: 21; /* Above everything */
+  height: 32px; /* Half of previous size */
+  width: auto;
 }
 
-/* Animated spheres */
-.sphere {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.55;
-  animation: sphereFloat 12s infinite ease-in-out;
+@media (max-width: 768px) {
+  .site-logo {
+    height: 24px;
+  }
 }
 
-.sphere1 {
-  width: 350px;
-  height: 350px;
-  background: #9980fa;
-  top: 20%;
-  left: 15%;
-}
-
-.sphere2 {
-  width: 420px;
-  height: 420px;
-  background: #ffb8b8;
-  bottom: 18%;
-  right: 12%;
-  animation-delay: 2s;
-}
-
-.sphere3 {
-  width: 280px;
-  height: 280px;
-  background: #b8eaff;
-  top: 50%;
-  right: 30%;
-  animation-delay: 4s;
-}
-
-@keyframes sphereFloat {
-  0% { transform: translateY(0) translateX(0); }
-  50% { transform: translateY(-40px) translateX(20px); }
-  100% { transform: translateY(0) translateX(0); }
-}
-
-/* HERO TEXT OVERLAY */
+/* HERO OVERLAY for the THREE.JS HERO */
 .overlay {
-  position: absolute;
+  position: fixed; /* stays on hero only */
   top: 0;
   left: 0;
   width: 100%;
@@ -98,64 +64,112 @@ nav a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 5;
-  pointer-events: auto; /* <--- FIXED HERE */
+  text-align: center;
+  z-index: 10; /* ABOVE canvas, BELOW navbar */
+  pointer-events: none; /* does NOT block scrolling */
 }
 
-.hello {
-  font-size: 52px;
+.overlay h1 {
+  font-size: 64px;
   font-weight: 600;
+  line-height: 1.05;
   color: #1a1a1a;
-  margin-bottom: 10px;
+  pointer-events: auto;
 }
 
-.hello-subline {
+.tagline {
+  margin-top: 18px;
   font-size: 20px;
   font-weight: 300;
   color: #1a1a1a;
   max-width: 600px;
-  text-align: center;
   line-height: 1.45;
+  pointer-events: auto;
 }
 
-/* DOWN ARROW */
+/* SCROLL ARROW */
 .scroll-arrow {
   position: absolute;
   bottom: 40px;
-  font-size: 34px;
-  color: #1a1a1a;
   cursor: pointer;
-  opacity: 0.8;
-  transition: opacity 0.2s ease;
-  z-index: 20;
-  pointer-events: auto;
+  opacity: 0.85;
+  width: 38px;
+  height: 38px;
+  background: none;
+  border: none;
+  padding: 0;
+  z-index: 11;
+  pointer-events: auto; /* clickable */
+}
+
+.scroll-arrow svg {
+  width: 100%;
+  height: 100%;
+  stroke: #1a1a1a;
+  fill: none;
+  stroke-width: 2.5;
 }
 
 .scroll-arrow:hover {
   opacity: 1;
 }
 
-.scroll-arrow a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* SECTION: ABOUT */
-#about {
+/* ABOUT SECTION (placed AFTER hero) */
+.about-section {
   background: #ffffff;
-  padding: 120px 40px;
+  padding: 140px 40px 120px;
   color: #1a1a1a;
   font-size: 18px;
   line-height: 1.6;
-  min-height: 80vh;
+  position: relative;
+  z-index: 5; /* ABOVE hero canvas */
+}
+
+.about-section h2 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+/* CORE CAPABILITIES SECTION */
+.core-section {
+  background: #ffffff;
+  padding: 120px 40px;
+  color: #1a1a1a;
+  position: relative;
+  z-index: 5;
+}
+
+.core-section h2 {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.core-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.core-card {
+  border: 1px solid #999;
+  padding: 24px;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.core-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 20px;
 }
 
 /* MOBILE */
 @media (max-width: 768px) {
-  .hello {
-    font-size: 38px;
+  .overlay h1 {
+    font-size: 40px;
   }
-  .hello-subline {
+
+  .tagline {
     font-size: 18px;
     padding: 0 20px;
   }
