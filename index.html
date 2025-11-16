@@ -297,12 +297,12 @@
   <div class="menu-links">
     <a href="#about" id="about-link">ABOUT</a>
     <a href="gemini.html">WORK</a>
-    <a href="#contact">CONTACT</a>
+    <a href="contact.html">CONTACT</a>
   </div>
 </nav>
 
 <div class="identity">
-  <img src="A_logo_for_Mira_Rauschenberger_is_displayed_in_the.png" alt="Mira logo">
+  <img src="logo.png" alt="Mira logo">
 </div>
 
 <script>
@@ -524,108 +524,10 @@ window.addEventListener('orientationchange', () => {
   <h2>About Me</h2>
   <p>
     I'm a designer focused on clarity, usability, and thoughtful interaction systems.<br>
-    My work bridges aesthetics and logic – turning complexity into intuitive experiences<br>
+    My work bridges aesthetics and logic — turning complexity into intuitive experiences<br>
     that empower users and organizations alike.
   </p>
 </section>
-
-<!-- Concentric Circles Animation Section -->
-<section id="circles-section" style="
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 0;
-  margin-top: -6rem;   /* pulls animation upward */
-  margin-bottom: -21.5rem; /* pulls animation downward */
-  background: #f9fbff;
-">
-  <div id="circles-wrapper" style="
-    max-width: 470px;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    position: relative;
-  ">
-    <canvas id="circlesCanvas" style="
-      width: 100%;
-      height: 100%;
-      display: block;
-    "></canvas>
-  </div>
-</section>
-
-<script>
-(() => {
-  const canvas = document.getElementById("circlesCanvas");
-  const ctx = canvas.getContext("2d");
-
-  function resize() {
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * window.devicePixelRatio;
-    canvas.height = rect.height * window.devicePixelRatio;
-    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-  }
-  window.addEventListener("resize", resize);
-  resize();
-
-  const baseRings = [40, 80, 120, 160, 200];
-  let angle = 0;
-
-  function draw() {
-    const rect = canvas.getBoundingClientRect();
-    ctx.clearRect(0, 0, rect.width, rect.height);
-
-    ctx.save();
-    const visibleCut = rect.height * 0.47;
-    ctx.beginPath();
-    ctx.rect(0, 0, rect.width, visibleCut);
-    ctx.clip();
-
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
-
-    const sphereR = 12;
-    const travelRadius = baseRings[0] - sphereR - 4;
-    const sx = cx + Math.cos(angle) * travelRadius;
-    const sy = cy + Math.sin(angle) * travelRadius;
-
-    const breath = 1 + Math.sin(angle * 1.5) * 0.03;
-    const globalRot = angle * 0.3;
-
-    const pullStrength = 55;
-    const pullX = Math.cos(angle) * pullStrength;
-    const pullY = Math.sin(angle) * pullStrength;
-
-    baseRings.forEach((r, i) => {
-      const wobbleX = Math.cos(angle * 2 + i * 0.7) * (i + 1) * 1.8;
-      const wobbleY = Math.sin(angle * 2 + i * 0.7) * (i + 1) * 1.8;
-
-      const ox = Math.cos(globalRot) * wobbleX - Math.sin(globalRot) * wobbleY;
-      const oy = Math.sin(globalRot) * wobbleX + Math.cos(globalRot) * wobbleY;
-
-      const tighteningFactor = (i + 1) / baseRings.length;
-      const tx = pullX * tighteningFactor;
-      const ty = pullY * tighteningFactor;
-
-      const radius = r * breath;
-
-      ctx.beginPath();
-      ctx.lineWidth = 1.25;
-      ctx.strokeStyle = "#555555";
-      ctx.arc(cx + ox + tx, cy + oy + ty, radius, 0, Math.PI * 2);
-      ctx.stroke();
-    });
-
-    ctx.restore();
-
-    angle += 0.02;
-    requestAnimationFrame(draw);
-  }
-
-  draw();
-})();
-</script>
-
-
 
 <!-- Core Capabilities -->
 <section class="core-section" id="core">
@@ -637,7 +539,7 @@ window.addEventListener('orientationchange', () => {
     </div>
     <div class="core-card">
       <h3>Streamlined Design</h3>
-      <p>Creating intuitive interfaces with attention to typography, color, and layout systems.</p>
+      <p>Creating intuitive interfaces with attention to maintaining layout systems.</p>
     </div>
     <div class="core-card">
       <h3>Data Analysis</h3>
@@ -648,4 +550,3 @@ window.addEventListener('orientationchange', () => {
 
 </body>
 </html>
-
