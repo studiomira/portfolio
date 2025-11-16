@@ -22,26 +22,13 @@ body {
   cursor: default;
 }
 
-/* ↓↓↓ ADDED FIX FOR CANVAS DEPTH (ONLY CHANGE: fixed → absolute) ↓↓↓ */
-canvas {
-  display: block;
-  z-index: 1;
-  opacity: 0.8;
-  position: absolute;  /* FIXED → ABSOLUTE */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-/* ↑↑↑ END FIX ↑↑↑ */
-
 /* NAVIGATION */
 nav {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 6;
+  z-index: 9999; /* nav above canvas */
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -131,13 +118,11 @@ nav a.active::after {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-
-  /* LOGO ABOVE CANVAS */
-  z-index: 10;
+  z-index: 9999; /* logo above animation */
 }
 
 .identity img {
-  height: 21px; /* HALF SIZE OF YOUR PREVIOUS 42px */
+  height: 21px; /* 50% size */
   width: auto;
   object-fit: contain;
 }
@@ -151,7 +136,7 @@ nav a.active::after {
   justify-content: center;
   align-items: center;
   pointer-events: none;
-  z-index: 2;
+  z-index: 5000; /* above canvas, below nav */
   transition: transform .4s ease-out;
 }
 
@@ -298,7 +283,7 @@ h1 {
   .about-section p { font-size: 0.95rem; padding: 0 0.8rem; }
 }
 
-/* ↓↓↓ RESPONSIVE LOGO SIZING ↓↓↓ */
+/* RESPONSIVE LOGO SIZING */
 @media (max-width: 900px) {
   .identity img { height: 17px; }
 }
@@ -310,9 +295,8 @@ h1 {
 @media (max-width: 400px) {
   .identity img { height: 12px; }
 }
-/* ↑↑↑ END LOGO SIZING ↑↑↑ */
 
-/* === FIX: HERO LAYERING === */
+/* HERO LAYERING FIX */
 .hero-section {
   position: relative;
   width: 100%;
@@ -321,6 +305,7 @@ h1 {
   z-index: 0;
 }
 
+/* The ONLY canvas rule now — stays inside hero */
 canvas {
   position: absolute !important;
   top: 0;
@@ -336,5 +321,5 @@ canvas {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 5000;
 }
