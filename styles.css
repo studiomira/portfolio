@@ -13,6 +13,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 html, body { height: 100%; margin: 0; padding: 0; }
+
+html {
+  scrollbar-gutter: stable; /* FIXES CHROME HORIZONTAL JUMP */
+}
+
 body {
   margin: 0;
   overflow-x: hidden;
@@ -296,3 +301,27 @@ nav a.active::after {
   pointer-events: none; /* canvas won't intercept clicks */
 }
 
+/* --------------------------------
+   TEXT FADE-IN ANIMATION RESTORE
+---------------------------------- */
+.overlay h1,
+.tagline,
+.hello-subline {
+  opacity: 0;
+  animation: fadeInUp 0.9s ease forwards;
+}
+
+.overlay h1 { animation-delay: 0.2s; }
+.tagline { animation-delay: 0.5s; }
+.hello-subline { animation-delay: 0.8s; }
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
