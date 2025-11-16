@@ -39,7 +39,7 @@ nav {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 6;
+  z-index: 9999; /* ← UPDATED: ensure nav stays above canvas */
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -130,13 +130,12 @@ nav a.active::after {
   align-items: center;
   gap: 0.6rem;
 
-  /* ↓↓↓ PUT LOGO ABOVE CANVAS ↓↓↓ */
-  z-index: 10;
-  /* ↑↑↑ */
+  /* Ensure logo stays above animation */
+  z-index: 9999; /* ← UPDATED */
 }
 
 .identity img {
-  height: 42px;
+  height: 21px;  /* ← UPDATED: 50% of previous 42px */
   width: auto;
   object-fit: contain;
 }
@@ -150,7 +149,7 @@ nav a.active::after {
   justify-content: center;
   align-items: center;
   pointer-events: none;
-  z-index: 2;
+  z-index: 5000; /* ensure overlay text is above canvas but below nav/logo */
   transition: transform .4s ease-out;
 }
 
@@ -299,15 +298,15 @@ h1 {
 
 /* ↓↓↓ RESPONSIVE LOGO SIZING ↓↓↓ */
 @media (max-width: 900px) {
-  .identity img { height: 34px; }
+  .identity img { height: 17px; } /* 50% scaling preserved */
 }
 
 @media (max-width: 600px) {
-  .identity img { height: 28px; }
+  .identity img { height: 14px; }
 }
 
 @media (max-width: 400px) {
-  .identity img { height: 24px; }
+  .identity img { height: 12px; }
 }
 /* ↑↑↑ END LOGO SIZING ↑↑↑ */
 
@@ -335,5 +334,5 @@ canvas {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2;
+  z-index: 5000;
 }
