@@ -1,276 +1,298 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Mira – Crafting Clarity</title>
+/* GLOBAL TYPOGRAPHY UPDATE */
+body, p, a, input, textarea, label, button, .hello-subline, #success-screen p {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
+/* NAVIGATION MUST STAY POPPINS */
+nav a {
+  font-family: 'Poppins', sans-serif !important;
+}
 
-<!-- External CSS -->
-<link rel="stylesheet" href="styles.css" />
-</head>
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Poppins', sans-serif;
+}
 
-<body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+html, body { height: 100%; margin: 0; padding: 0; }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
+  font-family: 'Poppins', sans-serif;
+  color: #1a1a1a;
+  cursor: default;
+}
 
-<!-- NAVIGATION -->
-<nav id="navbar">
-  <div class="menu-toggle" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
-  <div class="menu-links">
-    <a href="#about" id="about-link">ABOUT</a>
-    <a href="work.html">WORK</a>
-    <a href="contact.html">CONTACT</a>
-  </div>
-</nav>
+/* NAVIGATION */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999; /* nav above canvas */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 2rem 3rem;
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
 
-<div class="identity">
-  <img src="images/logotype.png" alt="Mira Logo" class="site-logo">
-</div>
+nav.scrolled {
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  backdrop-filter: blur(8px);
+}
 
-<script>
-  // === Three.js Hero Scene ===
-  const scene = new THREE.Scene();
-  const fogColor = new THREE.Color(0xffffff);
-  scene.fog = new THREE.Fog(fogColor, 10, 60);
+nav a {
+  position: relative;
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 0 1.25rem;
+}
 
-  const camera = new THREE.PerspectiveCamera(75, innerWidth/innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setClearColor(0xffffff, 1);
-  renderer.setSize(innerWidth, innerHeight);
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 1.5px;
+  background-color: #1a1a1a;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.25,0.9,0.25,1);
+}
 
-  // ONLY CHANGE #1 — ensure canvas is behind everything
-  renderer.domElement.style.position = "fixed";
-  renderer.domElement.style.top = "0";
-  renderer.domElement.style.left = "0";
-  renderer.domElement.style.zIndex = "0";
+nav a:hover::after,
+nav a.active::after {
+  transform: scaleX(1) !important;
+  background-color: #3355cc;
+}
 
-  document.body.appendChild(renderer.domElement);
+/* Hamburger for mobile */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26px;
+  height: 18px;
+  cursor: pointer;
+}
+.menu-toggle span {
+  height: 2px;
+  background: #1a1a1a;
+  border-radius: 2px;
+  width: 100%;
+}
 
-  const ambient = new THREE.AmbientLight(0xffffff, 0.6);
-  scene.add(ambient);
-  const pointLight = new THREE.PointLight(0xffffff, 2.4, 300);
-  pointLight.position.set(0, 0, 10);
-  scene.add(pointLight);
-  const highlightLight = new THREE.PointLight(0x99b5ff, 6, 60);
-  scene.add(highlightLight);
-
-  const group = new THREE.Group();
-  scene.add(group);
-
-  const NUM_SPHERES = 250;
-  const BASE_RADIUS = 0.07;
-  const RANGE = 15;
-  const COLORS = [0x002c8b, 0x3355cc, 0x668cff];
-
-  const geo = new THREE.SphereGeometry(BASE_RADIUS, 32, 32);
-  const spheres = [];
-
-  for (let i = 0; i < NUM_SPHERES; i++) {
-    const color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    const mat = new THREE.MeshPhysicalMaterial({
-      color,
-      metalness: 1.0,
-      roughness: 0.02,
-      transmission: 0.55,
-      reflectivity: 1,
-      clearcoat: 1,
-      clearcoatRoughness: 0.02,
-      transparent: true,
-      opacity: 0.85,
-      envMapIntensity: 3.2
-    });
-    const s = new THREE.Mesh(geo, mat);
-    const xPos = (Math.random() - 0.5) * RANGE * 2;
-    const yPos = (Math.random() - 0.5) * RANGE * 2;
-    const zPos = (Math.random() - 0.5) * RANGE * 2;
-    s.position.set(xPos, yPos, zPos);
-    
-    // Store original position for attraction effect
-    s.userData.originalPos = new THREE.Vector3(xPos, yPos, zPos);
-    
-    // Mark ~10% of spheres for pulsation and floating
-    if (Math.random() < 0.1) {
-      s.userData.isPulsating = true;
-      s.userData.pulseSpeed = 0.5 + Math.random() * 0.5; // Vary pulse speed
-      s.userData.floatSpeed = 0.3 + Math.random() * 0.4; // Vary float speed
-      s.userData.pulseOffset = Math.random() * Math.PI * 2; // Random phase
-      s.userData.floatOffset = Math.random() * Math.PI * 2; // Random phase
-    }
-    
-    group.add(s);
-    spheres.push(s);
+@media (max-width: 700px) {
+  nav {
+    padding: 1.5rem;
+    justify-content: flex-end;
   }
-
-  camera.position.z = 25;
-
-  const overlay = document.createElement('div');
-  overlay.className = 'overlay';
-  document.body.appendChild(overlay);
-
-  const title = document.createElement('h1');
-  title.innerHTML = "CRAFTING<br>CLARITY";
-  overlay.appendChild(title);
-
-  const tagline = document.createElement('p');
-  tagline.className = 'tagline';
-  tagline.textContent = "I DESIGN INTERFACES THAT UNTANGLE COMPLEXITY.";
-  overlay.appendChild(tagline);
-
-  const arrow = document.createElement('button');
-  arrow.className = 'scroll-arrow';
-  arrow.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>`;
-  overlay.appendChild(arrow);
-
-  arrow.addEventListener('click', () => {
-    document.querySelector('.about-section').scrollIntoView({ behavior: 'smooth' });
-  });
-
-  let mouseX = 0, mouseY = 0;
-  document.addEventListener('mousemove', e => {
-    mouseX = (e.clientX / innerWidth) * 2 - 1;
-    mouseY = -(e.clientY / innerHeight) * 2 + 1;
-  });
-
-  document.addEventListener('touchmove', e => {
-    if (e.touches.length > 0) {
-      mouseX = (e.touches[0].clientX / innerWidth) * 2 - 1;
-      mouseY = -(e.touches[0].clientY / innerHeight) * 2 + 1;
-    }
-  });
-
-  document.addEventListener('touchstart', e => {
-    if (e.touches.length > 0) {
-      mouseX = (e.touches[0].clientX / innerWidth) * 2 - 1;
-      mouseY = -(e.touches[0].clientY / innerHeight) * 2 + 1;
-    }
-  });
-
-  const clock = new THREE.Clock();
-  function animate() {
-    requestAnimationFrame(animate);
-    const t = clock.getElapsedTime();
-
-    camera.position.x += (mouseX * 6 - camera.position.x) * 0.12;
-    camera.position.y += (mouseY * 4 - camera.position.y) * 0.12;
-    camera.lookAt(scene.position);
-
-    pointLight.position.set(mouseX * 60, mouseY * 35, 15 + Math.sin(t) * 5);
-    highlightLight.position.set(mouseX * 40, mouseY * 20, 5);
-
-    const cursorVec = new THREE.Vector2(mouseX, mouseY);
-    spheres.forEach(s => {
-      s.position.copy(s.userData.originalPos);
-      
-      if (s.userData.isPulsating) {
-        const pulseScale = 1 + Math.sin(t * s.userData.pulseSpeed + s.userData.pulseOffset) * 0.3;
-        s.scale.set(pulseScale, pulseScale, pulseScale);
-        
-        const floatAmount = Math.sin(t * s.userData.floatSpeed + s.userData.floatOffset) * 2;
-        s.position.z = s.userData.originalPos.z + floatAmount;
-      } else {
-        s.scale.set(1, 1, 1);
-      }
-      
-      const screenPos = s.position.clone().project(camera);
-      const screenVec = new THREE.Vector2(screenPos.x, screenPos.y);
-      const dist = cursorVec.distanceTo(screenVec);
-      
-      const attractionStrength = 0.4;
-      const attractionDistance = 0.6;
-      if (dist < attractionDistance) {
-        const attractionFactor = (1 - dist / attractionDistance) * attractionStrength;
-        const dirX = (cursorVec.x - screenVec.x) * attractionFactor;
-        const dirY = (cursorVec.y - screenVec.y) * attractionFactor;
-        
-        const worldOffset = new THREE.Vector3(dirX * 2, -dirY * 2, 0);
-        s.position.add(worldOffset);
-      }
-      
-      const intensity = Math.max(0, 1 - dist * 2);
-      s.material.emissive = new THREE.Color(0x3355cc).multiplyScalar(intensity * 0.4);
-    });
-
-    group.rotation.y += 0.001;
-    renderer.render(scene, camera);
+  .menu-links {
+    display: none;
+    flex-direction: column;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(6px);
+    border-radius: 0.8rem;
+    padding: 1rem 1.5rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: absolute;
+    top: 4rem;
+    right: 1.5rem;
   }
-  animate();
+  .menu-links.open { display: flex; }
+  .menu-toggle { display: flex; }
+  nav a { margin: 0.6rem 0; }
+}
 
-  window.addEventListener('resize', () => {
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth, innerHeight);
-  });
+/* LOGO */
+.identity {
+  position: absolute;
+  top: 2rem;
+  left: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  z-index: 9999; /* logo above animation */
+}
 
-  window.addEventListener('orientationchange', () => {
-    setTimeout(() => {
-      const w = window.visualViewport ? window.visualViewport.width : window.innerWidth;
-      const h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+.identity img {
+  height: 21px; /* 50% size */
+  width: auto;
+  object-fit: contain;
+}
 
-      camera.aspect = w / h;
-      camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+/* OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+  z-index: 5000; /* above canvas, below nav */
+  transition: transform .4s ease-out;
+}
 
-      renderer.domElement.style.width = "100%";
-      renderer.domElement.style.height = "100%";
+/* HERO TITLE */
+.overlay h1 {
+  margin: 0;
+  color: #1a1a1a;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: pre-line;
+  font-size: clamp(4.2rem, 9vw, 9.5rem);
+  line-height: 1.05;
+  opacity: 1;
+}
 
-      window.dispatchEvent(new Event('scroll'));
-    }, 500);
-  });
+/* TAGLINE */
+.tagline {
+  margin-top: 1.2em;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.126em;
+  text-transform: uppercase;
+  font-weight: 300;
+  color: #1a1a1a;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.65);
+  padding: 0.45em 1.1em;
+  border-radius: 1.5em;
+  backdrop-filter: blur(6px);
+  display: inline-block;
+}
 
-  function toggleMenu() {
-    document.querySelector('.menu-links').classList.toggle('open');
-  }
+/* Arrow button */
+.scroll-arrow {
+  position: absolute;
+  bottom: 2rem;
+  width: 56px;
+  height: 56px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 3;
+  pointer-events: auto;
+}
+.scroll-arrow svg {
+  width: 100%;
+  height: 100%;
+  stroke: #3355cc;
+  stroke-width: 1.5px;
+  fill: none;
+  transition: transform 0.3s ease;
+}
+.scroll-arrow:hover svg {
+  transform: translateY(4px);
+}
 
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    const heroHeight = window.innerHeight * 0.8;
-    if (window.scrollY > heroHeight) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
+/* ABOUT SECTION */
+.about-section {
+  background: #f9fbff;
+  width: 100vw;
+  padding: 8rem 2rem;
+  box-sizing: border-box;
+}
+.about-section h2 {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.about-section p {
+  max-width: 720px;
+  margin: 0 auto;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  font-size: 1rem;
+  color: #333;
+  text-align: center;
+  padding: 0 1rem;
+  word-wrap: break-word;
+}
 
-    const about = document.querySelector('.about-section');
-    const rect = about.getBoundingClientRect();
-    const aboutVisible = rect.top < window.innerHeight / 2 && rect.bottom > 0;
-    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-    if (aboutVisible) document.getElementById('about-link').classList.add('active');
-  });
-</script>
+/* CORE CAPABILITIES */
+.core-section {
+  background: #f9fbff;
+  padding: 8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.core-section h2 {
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 4rem;
+}
+.core-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  width: 100%;
+}
+.core-card {
+  background: transparent;
+  border-radius: 1.6rem;
+  padding: 2.2rem;
+  border: 1px solid #999;
+  transition: border-color 0.3s ease;
+}
+.core-card:hover {
+  border-color: #3355cc;
+}
+.core-card h3 {
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.02em;
+}
+.core-card p {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  color: #333;
+}
 
-<!-- About Section -->
-<section class="about-section" id="about">
-  <h2>About Me</h2>
-  <p>
-    I design clear experiences shaped by systems thinking.
-My work reduces noise, reveals logic, and creates interfaces
-that support users — and the organizations serving them.
-  </p>
-</section>
+@media (max-width: 480px) {
+  .overlay h1 { font-size: clamp(2.8rem, 10vw, 5.5rem); }
+  .core-section, .about-section { padding: 5rem 1.4rem; }
+  .about-section p { font-size: 0.95rem; padding: 0 0.8rem; }
+}
 
-<!-- Core Capabilities -->
-<section class="core-section" id="core">
-  <h2>Core Capabilities</h2>
-  <div class="core-cards">
-    <div class="core-card">
-      <h3>User Focus</h3>
-      <p>Unwavering commitment to prioritizing the needs and long-term goals of the users.</p>
-    </div>
-    <div class="core-card">
-      <h3>Streamlined Design</h3>
-      <p>Creating intuitive interfaces with attention to maintaining layout systems.</p>
-    </div>
-    <div class="core-card">
-      <h3>Data Analysis</h3>
-      <p>Interpreting quantitative and qualitative user data to extract actionable insights.</p>
-    </div>
-  </div>
-</section>
+/* HERO LAYERING FIX */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 0;
+}
 
-</body>
-</html>
+/* The ONLY canvas rule now — stays inside hero */
+.hero-section canvas {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 1;
+  pointer-events: none; /* canvas won't intercept clicks */
+}
+
