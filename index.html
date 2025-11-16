@@ -7,7 +7,7 @@
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
 
 <!-- External CSS -->
 <link rel="stylesheet" href="styles.css" />
@@ -157,16 +157,12 @@
 
     const cursorVec = new THREE.Vector2(mouseX, mouseY);
     spheres.forEach(s => {
-      // Start from original position
       s.position.copy(s.userData.originalPos);
       
-      // Pulsation and floating for special spheres
       if (s.userData.isPulsating) {
-        // Pulsation - scale up and down
         const pulseScale = 1 + Math.sin(t * s.userData.pulseSpeed + s.userData.pulseOffset) * 0.3;
         s.scale.set(pulseScale, pulseScale, pulseScale);
         
-        // Floating - move back and forth in Z direction
         const floatAmount = Math.sin(t * s.userData.floatSpeed + s.userData.floatOffset) * 2;
         s.position.z = s.userData.originalPos.z + floatAmount;
       } else {
@@ -177,7 +173,6 @@
       const screenVec = new THREE.Vector2(screenPos.x, screenPos.y);
       const dist = cursorVec.distanceTo(screenVec);
       
-      // Attraction effect - spheres are pulled slightly toward cursor
       const attractionStrength = 0.4;
       const attractionDistance = 0.6;
       if (dist < attractionDistance) {
@@ -185,7 +180,6 @@
         const dirX = (cursorVec.x - screenVec.x) * attractionFactor;
         const dirY = (cursorVec.y - screenVec.y) * attractionFactor;
         
-        // Convert screen space to world space offset
         const worldOffset = new THREE.Vector3(dirX * 2, -dirY * 2, 0);
         s.position.add(worldOffset);
       }
