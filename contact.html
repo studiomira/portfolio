@@ -228,7 +228,7 @@
 </nav>
 
 <div class="identity">
-  <img src="A_logo_for_Mira_Rauschenberger_is_displayed_in_the.png" alt="Mira logo">
+  <img src="logo.png" alt="Mira logo">
 </div>
 
 <!-- CONTENT -->
@@ -242,21 +242,21 @@
 
   <hr>
 
-  <form>
-    <label>Name *</label>
-    <input type="text" placeholder="Your Name..." required>
+  <form action="https://formspree.io/f/xblqzpor" method="POST">
+  <label>Name *</label>
+  <input type="text" name="name" placeholder="Your Name..." required>
 
-    <label>Email *</label>
-    <input type="email" placeholder="Your Email Address..." required>
+  <label>Email *</label>
+  <input type="email" name="email" placeholder="Your Email Address..." required>
 
-    <label>Subject</label>
-    <input type="text" placeholder="Just wanted to say HI">
+  <label>Subject</label>
+  <input type="text" name="subject" placeholder="Just wanted to say HI">
 
-    <label>Message *</label>
-    <textarea placeholder="Your Message..." required></textarea>
+  <label>Message *</label>
+  <textarea name="message" placeholder="Your Message..." required></textarea>
 
-    <button type="submit">SEND</button>
-  </form>
+  <button type="submit">SEND</button>
+</form>
 </div>
 
 <script>
