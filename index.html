@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,279 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
 
-<style>
-  html, body { height: 100%; margin: 0; }
-  body {
-    margin: 0;
-    overflow-x: hidden;
-    background: linear-gradient(180deg, #ffffff 0%, #f9fbff 100%);
-    font-family: 'Poppins', sans-serif;
-    color: #1a1a1a;
-    cursor: default;
-  }
-
-  canvas { display: block; z-index: 1; opacity: 0.8; }
-
-  /* NAVIGATION */
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 6;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 2rem 3rem;
-    transition: background 0.4s ease, box-shadow 0.4s ease;
-  }
-
-  nav.scrolled {
-    background: rgba(255, 255, 255, 0.97);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    backdrop-filter: blur(8px);
-  }
-
-  nav a {
-    position: relative;
-    color: #1a1a1a;
-    text-decoration: none;
-    font-size: 0.9rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 500;
-    margin: 0 1.25rem; /* reduced from 1.8rem → ~30% tighter */
-  }
-
-  nav a::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 1.5px;
-    background-color: #1a1a1a;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s cubic-bezier(0.25,0.9,0.25,1);
-  }
-
-  nav a:hover::after,
-  nav a.active::after {
-    transform: scaleX(1) !important;
-    background-color: #3355cc;
-  }
-
-  /* Hamburger for mobile */
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 26px;
-    height: 18px;
-    cursor: pointer;
-  }
-  .menu-toggle span {
-    height: 2px;
-    background: #1a1a1a;
-    border-radius: 2px;
-    width: 100%;
-  }
-
-  @media (max-width: 700px) {
-    nav {
-      padding: 1.5rem;
-      justify-content: flex-end;
-    }
-    .menu-links {
-      display: none;
-      flex-direction: column;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(6px);
-      border-radius: 0.8rem;
-      padding: 1rem 1.5rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      position: absolute;
-      top: 4rem;
-      right: 1.5rem;
-    }
-    .menu-links.open { display: flex; }
-    .menu-toggle { display: flex; }
-    nav a { margin: 0.6rem 0; }
-  }
-
-  /* LOGO */
-  .identity {
-    position: absolute;
-    top: 2rem;
-    left: 3rem;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    z-index: 5;
-  }
-  .identity img {
-    height: 42px;
-    width: auto;
-    object-fit: contain;
-  }
-
-  /* OVERLAY */
-  .overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none;
-    z-index: 2;
-    transition: transform .4s ease-out;
-  }
-
-  /* HERO TITLE */
-  h1 {
-    margin: 0;
-    color: #1a1a1a;
-    font-weight: 400;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    text-align: center;
-    white-space: pre-line;
-    font-size: clamp(4.2rem, 9vw, 9.5rem);
-    line-height: 1.05;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeInMain 7.2s cubic-bezier(0.25,0.9,0.25,1) forwards 0.7s;
-  }
-
-  /* TAGLINE (lighter, more spaced) */
-  .tagline {
-    margin-top: 1.2em;
-    font-family: 'Poppins', sans-serif;
-    font-size: 0.9rem;
-    letter-spacing: 0.126em;
-    text-transform: uppercase;
-    font-weight: 300;
-    color: #1a1a1a;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeInMain 2.6s ease-out forwards 1.2s;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.65);
-    padding: 0.45em 1.1em;
-    border-radius: 1.5em;
-    backdrop-filter: blur(6px);
-    display: inline-block;
-  }
-
-  @keyframes fadeInMain { to { opacity: 1; transform: translateY(0); } }
-
-  /* Arrow button (doubled in size) */
-  .scroll-arrow {
-    position: absolute;
-    bottom: 2rem;
-    width: 56px;  /* doubled */
-    height: 56px; /* doubled */
-    border: none;
-    background: none;
-    cursor: pointer;
-    z-index: 3;
-    pointer-events: auto;
-  }
-  .scroll-arrow svg {
-    width: 100%;
-    height: 100%;
-    stroke: #3355cc;
-    stroke-width: 1.5px;
-    fill: none;
-    transition: transform 0.3s ease;
-  }
-  .scroll-arrow:hover svg {
-    transform: translateY(4px);
-  }
-
-  /* ABOUT SECTION */
-  .about-section {
-    background: #f9fbff;
-    width: 100vw;
-    padding: 8rem 2rem;
-    box-sizing: border-box;
-  }
-  .about-section h2 {
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 500;
-    margin-bottom: 2rem;
-    text-align: center;
-  }
-  .about-section p {
-    max-width: 720px;
-    margin: 0 auto;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    line-height: 1.7;
-    font-size: 1rem;
-    color: #333;
-    text-align: center;
-    padding: 0 1rem; /* added padding for mobile so text never cuts off */
-    word-wrap: break-word;
-  }
-
-  /* CORE CAPABILITIES */
-  .core-section {
-    background: #f9fbff;
-    padding: 8rem 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .core-section h2 {
-    font-size: 1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 500;
-    margin-bottom: 4rem;
-  }
-  .core-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2rem;
-    max-width: 1000px;
-    width: 100%;
-  }
-  .core-card {
-    background: transparent;
-    border-radius: 1.6rem;
-    padding: 2.2rem;
-    border: 1px solid #999;
-    transition: border-color 0.3s ease;
-  }
-  .core-card:hover {
-    border-color: #3355cc;
-  }
-  .core-card h3 {
-    font-weight: 500;
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    letter-spacing: 0.02em;
-  }
-  .core-card p {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
-    line-height: 1.6;
-    font-size: 0.95rem;
-    color: #333;
-  }
-
-  @media (max-width: 480px) {
-    h1 { font-size: clamp(2.8rem, 10vw, 5.5rem); }
-    .core-section, .about-section { padding: 5rem 1.4rem; }
-    .about-section p { font-size: 0.95rem; padding: 0 0.8rem; }
-  }
-</style>
+<!-- External CSS -->
+<link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
@@ -477,8 +204,7 @@
     camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
   });
-  
-  // --- Minimal Android rotation fix (non-intrusive) ---
+
 window.addEventListener('orientationchange', () => {
   setTimeout(() => {
     const w = window.visualViewport ? window.visualViewport.width : window.innerWidth;
@@ -488,16 +214,13 @@ window.addEventListener('orientationchange', () => {
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
 
-    // refresh layout subtly (no visual jump)
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
 
     window.dispatchEvent(new Event('scroll'));
-  }, 500); // wait for Android to finish rotation
+  }, 500);
 });
 
-
-  // === Nav Behavior ===
   function toggleMenu() {
     document.querySelector('.menu-links').classList.toggle('open');
   }
@@ -525,7 +248,7 @@ window.addEventListener('orientationchange', () => {
   <p>
     I design clear experiences shaped by systems thinking.
 My work reduces noise, reveals logic, and creates interfaces
-that support users—and the organizations serving them.
+that support users — and the organizations serving them.
   </p>
 </section>
 
