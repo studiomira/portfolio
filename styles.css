@@ -227,6 +227,11 @@ nav a.active::after {
   padding: 0 1rem;
   word-wrap: break-word;
 }
+/* This ensures the About header matches the Core Capability headers exactly */
+.about-section h3 {
+  max-width: 720px;
+  margin: 0 auto 1.5rem auto; 
+  text-align: center;
 
 /* CORE CAPABILITIES */
 .core-section {
