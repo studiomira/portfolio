@@ -207,6 +207,14 @@ nav a.active::after {
   padding: 8rem 2rem;
   box-sizing: border-box;
 }
+.portfolio-photo {
+  width: 100%;
+  max-width: 800px;
+  display: block;
+  margin: 3rem auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
 .about-section h2 {
   font-size: 1rem;
   letter-spacing: 0.08em;
