@@ -332,3 +332,30 @@ nav a.active::after {
     transform: translateY(0);
   }
 }
+
+/* LOGO resizing like index page */
+.identity img {
+  height: 42px;       /* default large logo */
+  width: auto;
+  object-fit: contain;
+  transition: height 0.35s ease;
+}
+
+nav.scrolled ~ .identity img {
+  height: 21px;       /* shrinks when navbar is scrolled */
+}
+
+/* CONTACT FORM CENTERING */
+.wrap {
+  margin: 160px auto 80px auto; /* centers horizontally */
+  max-width: 540px;
+  padding: 0 40px;
+  position: relative;
+  z-index: 5;
+  text-align: center; /* centers children inline-block elements */
+}
+
+form {
+  display: inline-block; /* shrink-wrap the form */
+  text-align: left;      /* keep labels and inputs left-aligned */
+}
