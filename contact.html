@@ -28,6 +28,7 @@
       font-family: 'Poppins', sans-serif;
       color: #1a1a1a;
       cursor: none;
+      min-height: 100vh;
     }
 
     /* --- BACKGROUND CANVAS --- */
@@ -59,6 +60,16 @@
       align-items: center;
       padding: 2rem 3rem;
       transition: background 0.4s ease, box-shadow 0.4s ease;
+      height: 88px;
+      box-sizing: border-box;
+      gap: 0;
+    }
+
+    .menu-links {
+      display: flex;
+      flex: 0 0 auto;
+      width: max-content;
+      gap: 0;
     }
 
     nav.scrolled {
@@ -76,6 +87,8 @@
       text-transform: uppercase;
       font-weight: 500;
       margin: 0 1.25rem;
+      line-height: 1.2;
+      white-space: nowrap;
     }
 
     nav a::after {
