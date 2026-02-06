@@ -299,18 +299,20 @@
   cursor.className = 'custom-cursor';
   document.body.appendChild(cursor);
   
+  function updateCursorPosition(x, y) {
+    cursor.style.left = (x - 8) + 'px';
+    cursor.style.top = (y - 8) + 'px';
+  }
+  
   document.addEventListener('mousemove', (e) => {
-    cursor.style.left = (e.clientX - 8) + 'px';
-    cursor.style.top = (e.clientY - 8) + 'px';
+    updateCursorPosition(e.clientX, e.clientY);
   });
   
-  document.addEventListener('mouseenter', () => {
-    cursor.style.opacity = '1';
-  });
-  
-  document.addEventListener('mouseleave', () => {
-    cursor.style.opacity = '0';
-  });
+  document.addEventListener('touchmove', (e) => {
+    if (e.touches.length > 0) {
+      updateCursorPosition(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
 </script>
 
 </body>
