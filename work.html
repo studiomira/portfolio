@@ -391,33 +391,27 @@
     </div>
   </div>
 
-  <!-- Custom Animated Cursor -->
+  <!-- Custom Animated Cursor (disabled on touch devices) -->
   <script>
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    document.body.appendChild(cursor);
-    
-    let cursorVisible = false;
-    
-    document.addEventListener('mousemove', (e) => {
-      if (!cursorVisible) {
-        cursor.style.opacity = '1';
-        cursorVisible = true;
-      }
-      cursor.style.left = (e.clientX - 8) + 'px';
-      cursor.style.top = (e.clientY - 8) + 'px';
-    });
+    (function() {
+      const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+      if (!isTouchDevice) {
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        document.body.appendChild(cursor);
 
-    document.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        if (!cursorVisible) {
-          cursor.style.opacity = '1';
-          cursorVisible = true;
-        }
-        cursor.style.left = (e.touches[0].clientX - 8) + 'px';
-        cursor.style.top = (e.touches[0].clientY - 8) + 'px';
+        let cursorVisible = false;
+
+        document.addEventListener('mousemove', (e) => {
+          if (!cursorVisible) {
+            cursor.style.opacity = '1';
+            cursorVisible = true;
+          }
+          cursor.style.left = (e.clientX - 8) + 'px';
+          cursor.style.top = (e.clientY - 8) + 'px';
+        });
       }
-    }, { passive: true });
+    })();
 
     // Navigation toggle
     function toggleMenu() {
