@@ -293,23 +293,25 @@
   </div>
 </section>
 
-<!-- Custom Animated Cursor (disabled on touch devices) -->
+<!-- Custom Cursor (disabled on touch devices) -->
 <script>
   (function() {
     const isTouchDevice = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) return; // don't create custom cursor on phones/tablets
+    if (isTouchDevice) return;
 
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
     document.body.appendChild(cursor);
 
-    function updateCursorPosition(x, y) {
-      cursor.style.left = (x - 8) + 'px';
-      cursor.style.top = (y - 8) + 'px';
-    }
+    let cursorVisible = false;
 
     document.addEventListener('mousemove', (e) => {
-      updateCursorPosition(e.clientX, e.clientY);
+      if (!cursorVisible) {
+        cursor.style.opacity = '1';
+        cursorVisible = true;
+      }
+      cursor.style.left = (e.clientX - 8) + 'px';
+      cursor.style.top = (e.clientY - 8) + 'px';
     });
   })();
 </script>

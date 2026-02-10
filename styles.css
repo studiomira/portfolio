@@ -143,7 +143,7 @@ nav a.active::after {
 }
 
 .identity img {
-  height: 21px; /* 50% size */
+  height: 63px; /* 50% size */
   width: auto;
   object-fit: contain;
 }
@@ -362,14 +362,14 @@ nav a.active::after {
 
 /* LOGO resizing like index page */
 .identity img {
-  height: 21px;       /* same size across all pages */
+  height: 63px;       /* same size across all pages */
   width: auto;
   object-fit: contain;
   transition: height 0.35s ease;
 }
 
 nav.scrolled ~ .identity img {
-  height: 21px;       /* shrinks when navbar is scrolled */
+  height: 63px;       /* shrinks when navbar is scrolled */
 }
 
 /* CONTACT FORM CENTERING */
@@ -385,4 +385,20 @@ nav.scrolled ~ .identity img {
 form {
   display: inline-block; /* shrink-wrap the form */
   text-align: left;      /* keep labels and inputs left-aligned */
+}
+
+/* Custom Cursor - No Animation */
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #3355cc;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  z-index: 10000;
+  mix-blend-mode: multiply;
+  opacity: 0;
+  transition: opacity 0.1s ease;
 }
