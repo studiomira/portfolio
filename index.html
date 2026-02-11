@@ -131,6 +131,11 @@
   tagline.textContent = "I DESIGN INTERFACES THAT UNTANGLE COMPLEXITY.";
   overlay.appendChild(tagline);
 
+  const scrollText = document.createElement('p');
+  scrollText.className = 'scroll-prompt';
+  scrollText.textContent = 'SCROLL';
+  overlay.appendChild(scrollText);
+
   const arrow = document.createElement('button');
   arrow.className = 'scroll-arrow';
   arrow.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -246,6 +251,12 @@
     } else {
       navbar.classList.remove('scrolled');
     }
+
+    // Fade out scroll prompt and arrow
+    const fadeEnd = 300; // The scroll distance over which to fade
+    const opacity = Math.max(0, 1 - (window.scrollY / fadeEnd));
+    scrollText.style.opacity = opacity;
+    arrow.style.opacity = opacity;
 
     const about = document.querySelector('.about-section');
     const rect = about.getBoundingClientRect();
