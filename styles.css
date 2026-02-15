@@ -232,7 +232,6 @@ nav a.active::after {
   cursor: pointer;
   z-index: 3;
   pointer-events: auto;
-  animation: bobbing 2.5s ease-in-out infinite;
   transition: opacity 0.2s ease-out;
 }
 .scroll-arrow svg {
@@ -421,4 +420,33 @@ form {
   mix-blend-mode: multiply;
   opacity: 0;
   transition: opacity 0.1s ease;
+}
+
+.cta-button {
+  padding: 1rem 2rem;
+  background-color: #fff;
+  color: #1a1a1a;
+  border: 1px solid #3355cc;
+  border-radius: 3rem;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-bottom: 4rem;
+}
+
+.cta-button:hover {
+  background-color: #3355cc;
+  color: #fff;
+}
+
+.cta-button .arrow {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .arrow {
+  transform: translateX(5px);
 }

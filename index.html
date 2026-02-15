@@ -122,6 +122,12 @@
   overlay.className = 'overlay';
   heroEl.appendChild(overlay);
 
+  const ctaButton = document.createElement('a');
+  ctaButton.href = 'work.html';
+  ctaButton.className = 'cta-button';
+  ctaButton.innerHTML = 'Process & Results <span class="arrow">›</span>';
+  overlay.appendChild(ctaButton);
+
   const title = document.createElement('h1');
   title.innerHTML = "CRAFTING<br>CLARITY";
   overlay.appendChild(title);
@@ -217,7 +223,7 @@
   }
   animate();
 
-  window.addEventListener('resize', () => {
+  window.addEventListener('rxXesize', () => {
     camera.aspect = innerWidth / innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
