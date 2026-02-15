@@ -26,6 +26,7 @@
   </div>
   <div class="menu-links">
     <a href="#about" id="about-link">ABOUT</a>
+    <a href="visuals.html">VISUALS</a>
     <a href="work.html">WORK</a>
     <a href="contact.html">CONTACT</a>
   </div>
@@ -125,7 +126,7 @@
   const ctaButton = document.createElement('a');
   ctaButton.href = 'work.html';
   ctaButton.className = 'cta-button';
-  ctaButton.innerHTML = 'Process & Results <span class="arrow">›</span>';
+  ctaButton.innerHTML = 'Process & Results <span class="arrow"><svg style="display: inline-block; vertical-align: middle; margin-left: 5px; position: relative; top: -2px;" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="0" y1="12" x2="22" y2="12"></line><polyline points="15 5 22 12 15 19"></polyline></svg></span>';
   overlay.appendChild(ctaButton);
 
   const title = document.createElement('h1');
@@ -139,7 +140,7 @@
 
   const scrollText = document.createElement('p');
   scrollText.className = 'scroll-prompt';
-  scrollText.textContent = 'SCROLL';
+  scrollText.textContent = '';
   overlay.appendChild(scrollText);
 
   const arrow = document.createElement('button');

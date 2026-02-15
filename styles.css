@@ -429,7 +429,8 @@ form {
   border: 1px solid #3355cc;
   border-radius: 3rem;
   text-decoration: none;
-  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 300;
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -438,8 +439,8 @@ form {
 }
 
 .cta-button:hover {
-  background-color: #3355cc;
-  color: #fff;
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #1a1a1a;
 }
 
 .cta-button .arrow {
