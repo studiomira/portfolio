@@ -29,6 +29,9 @@
       color: #1a1a1a;
       cursor: none;
       min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* --- BACKGROUND CANVAS --- */
@@ -38,7 +41,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      z-index: 0;
+      z-index: -1;
       pointer-events: none;
     }
 
@@ -166,7 +169,6 @@
     }
 
     /* Custom Animated Cursor */
-    /* Custom Cursor */
     .custom-cursor {
       position: fixed;
       pointer-events: none;
@@ -181,7 +183,39 @@
       opacity: 0;
       transition: opacity 0.1s ease;
     }
-
+    .birthday-container {
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    #password-input {
+        margin-top: 20px;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+    #submit-btn, #play-music-btn {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: #3355cc;
+        color: white;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+    #download-link {
+        display: none;
+        margin-top: 20px;
+    }
+    #download-link a {
+        padding: 10px 20px;
+        border-radius: 5px;
+        background-color: #3355cc;
+        color: white;
+        text-decoration: none;
+    }
   </style>
 </head>
 
@@ -208,6 +242,18 @@
     <img src="images/logotype.png" alt="Mira Logo" class="site-logo">
   </div>
 
+  <div class="birthday-container">
+    <button id="play-music-btn">play music</button>
+    <h1 style="font-weight: 500;">HAPPY BIRTHDAY, MY LOVE!</h1>
+    <input type="password" id="password-input" placeholder="Enter password">
+    <button id="submit-btn">Enter</button>
+    <div id="download-link">
+      <a href="NIVI.pdf" download>Download your present here</a>
+    </div>
+    <audio id="birthday-song" src="song.mp4"></audio>
+  </div>
+
+
   <script>
   function toggleMenu() {
     document.querySelector('.menu-links').classList.toggle('open');
@@ -233,7 +279,20 @@
       navbar.classList.remove('scrolled');
     }
   });
-</script>
+
+  document.getElementById('submit-btn').addEventListener('click', function() {
+    var password = document.getElementById('password-input').value;
+    if (password === 'burek') {
+      document.getElementById('download-link').style.display = 'block';
+    } else {
+      alert('Incorrect password');
+    }
+  });
+
+  document.getElementById('play-music-btn').addEventListener('click', function() {
+    document.getElementById('birthday-song').play();
+  });
+  </script>
 
   <!-- THREE.JS ANIMATION -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
@@ -261,6 +320,7 @@
       const positions = [];
       const velocities = [];
 
+.
       for (let i = 0; i < COUNT; i++) {
         positions.push((Math.random() - 0.5) * 800);
         positions.push((Math.random() - 0.5) * 500);
