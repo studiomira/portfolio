@@ -32,9 +32,6 @@
       color: #1a1a1a;
       cursor: none;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     /* --- BACKGROUND CANVAS --- */
@@ -215,6 +212,37 @@
             margin-top: 10px;
         }
     }
+
+    /* CONTENT */
+    .wrap {
+      margin: 160px auto 80px auto;
+      max-width: 540px;
+      padding: 0 40px;
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem; /* white gap between images */
+    }
+
+    .wrap img {
+      width: 100%;
+      max-width: 540px;
+      height: auto;
+      display: block;
+    }
+
+    @media (max-width: 700px) {
+      .wrap {
+        margin-top: 130px;
+        padding: 0 28px;
+      }
+      .wrap img {
+        width: 100vw;
+        max-width: none;
+      }
+    }
   </style>
 </head>
 
@@ -237,6 +265,18 @@
     </div>
   </nav>
   <div class="menu-close" onclick="toggleMenu()">×</div>
+
+  <!-- CONTENT WRAPPER -->
+  <div class="wrap">
+    <img src="images/Visuals/001.jpg" alt="Visual 1">
+    <img src="images/Visuals/002.jpg" alt="Visual 2">
+    <img src="images/Visuals/003.jpg" alt="Visual 3">
+    <img src="images/Visuals/005.jpg" alt="Visual 4">
+    <img src="images/Visuals/006.jpg" alt="Visual 5">
+    <img src="images/Visuals/007.jpg" alt="Visual 6">
+    <img src="images/Visuals/008.jpg" alt="Visual 7">
+    <img src="images/Visuals/0011.jpg" alt="Visual 8">
+  </div>
 
   <script>
   function toggleMenu() {
