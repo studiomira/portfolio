@@ -11,6 +11,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400&display=swap" rel="stylesheet">
 
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="styles.css" />
+
   <style>
     html, body { height: 100%; margin: 0; padding: 0; }
 
@@ -151,23 +154,6 @@
       nav a { margin: 0.6rem 0; }
     }
 
-    /* LOGO */
-    .identity {
-      position: absolute;
-      top: 2rem;
-      left: 3rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      z-index: 9999;
-    }
-
-    .identity img {
-      height: 63px;
-      width: auto;
-      object-fit: contain;
-    }
-
     /* Custom Animated Cursor */
     .custom-cursor {
       position: fixed;
@@ -250,14 +236,13 @@
       <a href="contact.html">CONNECT</a>
     </div>
   </nav>
-
-  <div class="identity">
-    <img src="images/logotype.png" alt="Mira Logo" class="site-logo">
-  </div>
+  <div class="menu-close" onclick="toggleMenu()">×</div>
 
   <script>
   function toggleMenu() {
+    document.body.classList.toggle('menu-open');
     document.querySelector('.menu-links').classList.toggle('open');
+    document.querySelector('.menu-toggle').classList.toggle('open');
   }
 
   const navbar = document.getElementById('navbar');

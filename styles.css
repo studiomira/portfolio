@@ -107,6 +107,11 @@ nav a.active::after {
   background: #1a1a1a;
   border-radius: 2px;
   width: 100%;
+  transition: all 0.3s ease;
+}
+
+.menu-close {
+  display: none;
 }
 
 @media (max-width: 700px) {
@@ -126,26 +131,50 @@ nav a.active::after {
     top: 4rem;
     right: 1.5rem;
   }
-  .menu-links.open { display: flex; }
+  .menu-links.open {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0;
+    padding: 2rem;
+    box-shadow: none;
+    z-index: 10000;
+  }
+  .menu-close {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    z-index: 10001;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    color: #1a1a1a;
+    cursor: pointer;
+  }
+
+  body.menu-open .menu-close {
+    display: flex;
+  }
   .menu-toggle { display: flex; }
+  .menu-toggle.open span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+  }
+  .menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .menu-toggle.open span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+  }
   nav a { margin: 0.6rem 0; }
-}
-
-/* LOGO */
-.identity {
-  position: absolute;
-  top: 2rem;
-  left: 3rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  z-index: 9999; /* logo above animation */
-}
-
-.identity img {
-  height: 63px; /* 50% size */
-  width: auto;
-  object-fit: contain;
 }
 
 /* OVERLAY */
@@ -385,10 +414,6 @@ nav a.active::after {
   width: auto;
   object-fit: contain;
   transition: height 0.35s ease;
-}
-
-nav.scrolled ~ .identity img {
-  height: 63px;       /* shrinks when navbar is scrolled */
 }
 
 /* CONTACT FORM CENTERING */
